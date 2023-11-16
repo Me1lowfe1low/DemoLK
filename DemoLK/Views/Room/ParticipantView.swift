@@ -49,16 +49,14 @@ struct ParticipantView: View {
                     }
                 } else if let publication = participant.mainVideoPublication as? RemoteTrackPublication,
                           case .notAllowed = publication.subscriptionState {
-                    // Show no permission icon
-                    Image(systemName: "exclamationmark.circle").bgView(geometry: geometry)
+                    Image(systemName: "exclamationmark.circle").backgroundIcon(geometry: geometry)
                 } else {
-                    // Show no camera icon
-                    Image(systemName: "video.slash.fill").bgView(geometry: geometry)
+                    Image(systemName: "video.slash.fill").backgroundIcon(geometry: geometry)
                 }
                 
                 VStack(
                     alignment: .trailing,
-                    spacing: 0
+                    spacing: verticalSpacing
                 ) {
                     // Show the sub-video view
                     if let subVideoTrack = participant.subVideoTrack {
@@ -75,16 +73,16 @@ struct ParticipantView: View {
                             width: min(
                                 geometry.size.width,
                                 geometry.size.height
-                            ) * 0.3
+                            ) * imageSizingCoefficient
                         )
-                        .cornerRadius(8)
+                        .cornerRadius(subVideoTrackRadius)
                         .padding()
                     }
                     
                     // Bottom user info bar
                     HStack {
                         Text("\(participant.identity)")
-                            .lineLimit(1)
+                            .lineLimit(infoBarLineLimit)
                             .truncationMode(.tail)
                         
                         if let publication = participant.mainVideoPublication,
@@ -187,31 +185,47 @@ struct ParticipantView: View {
                             Image(systemName: "lock.fill")
                                 .foregroundColor(.green)
                         }
-                    }.padding(5)
-                        .frame(minWidth: 0, maxWidth: .infinity)
-                        .background(Color.black.opacity(0.5))
+                    }
+                    .padding(infoBarPadding)
+                    .frame(
+                        minWidth: 0,
+                        maxWidth: .infinity
+                    )
+                    .background(infoBarBackgroundColor.opacity(infoBarBackgroundColorOpacity))
                 }
             }
-            .cornerRadius(8)
-            // Glow the border when the participant is speaking
+            .cornerRadius(participantViewRadius)
             .overlay(
                 participant.isSpeaking ?
-                RoundedRectangle(cornerRadius: 5)
+                RoundedRectangle(cornerRadius: overlayCornerRadius)
                     .stroke(
-                        Color.blue,
-                        lineWidth: 5.0
+                        overlayBorderColor,
+                        lineWidth: overlayBorderWidth
                     )
                 : nil
             )
         }.gesture(
             TapGesture()
                 .onEnded { _ in
-                    // Pass the tap event
                     onTap?(participant)
                 }
         )
     }
 }
+
+private let verticalSpacing: CGFloat = 0.0
+private let overlayCornerRadius: CGFloat = 4.0
+private let overlayBorderColor: Color = .blue
+private let overlayBorderWidth: CGFloat = 4.0
+
+private let imageSizingCoefficient: CGFloat = 0.3
+private let subVideoTrackRadius: CGFloat = 8.0
+private let participantViewRadius: CGFloat = 8.0
+
+private let infoBarLineLimit: Int = 1
+private let infoBarPadding:  CGFloat = 5.0
+private let infoBarBackgroundColor: Color = .black
+private let infoBarBackgroundColorOpacity: CGFloat = 0.5
 
 extension Participant {
     public var mainVideoPublication: TrackPublication? {

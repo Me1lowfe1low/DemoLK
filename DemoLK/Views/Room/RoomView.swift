@@ -6,8 +6,8 @@ let adaptiveMin = 170.0
 let toolbarPlacement: ToolbarItemPlacement = .bottomBar
 
 struct RoomView: View {
-    @EnvironmentObject var appCtx: AppContext
-    @EnvironmentObject var roomCtx: RoomContext
+    @EnvironmentObject var applicationContext: AppContext
+    @EnvironmentObject var roomContext: RoomContext
     @EnvironmentObject var room: Room
     
     @State var isCameraPublishingBusy = false
@@ -16,75 +16,15 @@ struct RoomView: View {
     
     @State private var screenPickerPresented = false
     @State private var showConnectionTime = true
-
-    func sortedParticipants() -> [Participant] {
-        room.allParticipants.values.sorted { p1, p2 in
-            if p1 is LocalParticipant { return true }
-            if p2 is LocalParticipant { return false }
-            return (p1.joinedAt ?? Date()) < (p2.joinedAt ?? Date())
-        }
-    }
-    
-    func content(geometry: GeometryProxy) -> some View {
-        VStack {
-            AdaptiveStack(
-                axis: geometry.isTall ? .vertical : .horizontal,
-                spacing: 5
-            ) {
-                Group {
-                    if let focusParticipant = roomCtx.focusParticipant {
-                        ZStack(alignment: .bottomTrailing) {
-                            ParticipantView(
-                                participant: focusParticipant,
-                                videoViewMode: appCtx.videoViewMode
-                            ) { _ in
-                                roomCtx.focusParticipant = nil
-                            }
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 5)
-                                    .stroke(
-                                        .red.opacity(0.7),
-                                        lineWidth: 5.0
-                                    )
-                            )
-                        }
-                    } else {
-                        ParticipantLayout(
-                            sortedParticipants(),
-                            spacing: 5
-                        ) { participant in
-                            ParticipantView(
-                                participant: participant,
-                                videoViewMode: appCtx.videoViewMode
-                            ) { participant in
-                                roomCtx.focusParticipant = participant
-                            }
-                        }
-                    }
-                }
-                .frame(
-                    minWidth: 0,
-                    maxWidth: .infinity,
-                    minHeight: 0,
-                    maxHeight: .infinity
-                )
-
-                if roomCtx.showMessagesView {
-                    MessagesView(geometry: geometry)
-                }
-            }
-        }
-        .padding(5)
-    }
     
     var body: some View {
         GeometryReader { geometry in
-            content(geometry: geometry)
+            RoomContent(geometry: geometry)
         }
         .toolbar {
             ToolbarItemGroup(placement: toolbarPlacement) {
                 // VideoView mode switcher
-                Picker("Mode", selection: $appCtx.videoViewMode) {
+                Picker("Mode", selection: $applicationContext.videoViewMode) {
                     Text("Fit").tag(VideoView.LayoutMode.fit)
                     Text("Fill").tag(VideoView.LayoutMode.fill)
                 }
@@ -169,19 +109,19 @@ struct RoomView: View {
                     // Toggle messages view (chat example)
                 Button(action: {
                     withAnimation {
-                        roomCtx.showMessagesView.toggle()
+                        roomContext.showMessagesView.toggle()
                     }
                 },
                        label: {
                     Image(systemName: "message.fill")
-                        .renderingMode(roomCtx.showMessagesView ? .original : .template)
+                        .renderingMode(roomContext.showMessagesView ? .original : .template)
                 })
                 Spacer()
                 
                 // Disconnect
                 Button(action: {
                     Task {
-                        try await roomCtx.disconnect()
+                        try await roomContext.disconnect()
                     }
                 }, label: {
                     Image(systemName: "xmark.circle.fill")

@@ -3,7 +3,6 @@ import LiveKit
 import WebRTC
 import Combine
 
-// This class contains the logic to control behaviour of the whole app.
 final class AppContext: ObservableObject {
     @Published var videoViewVisible: Bool = true {
         didSet { store.videoViewVisible = videoViewVisible }
@@ -39,7 +38,6 @@ final class AppContext: ObservableObject {
     private var store: Preferences
     
     public init(store: Preferences) {
-        print("🦕 appContext initialization in progress...")
         self.store = store
         
         self.videoViewVisible = store.videoViewVisible
@@ -49,9 +47,6 @@ final class AppContext: ObservableObject {
         self.videoViewMirrored = store.videoViewMirrored
         
         Room.audioDeviceModule.setDevicesUpdatedHandler {
-            print("🪿 devices did update")
-            
-            // force UI update for outputDevice / inputDevice
             DispatchQueue.main.async {
                 self.outputDevice = Room.audioDeviceModule.outputDevice
                 self.inputDevice = Room.audioDeviceModule.inputDevice

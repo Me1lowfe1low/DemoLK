@@ -2,7 +2,7 @@ import SwiftUI
 import LiveKit
 
 struct MessagesView: View {
-    @EnvironmentObject var roomCtx: RoomContext
+    @EnvironmentObject var roomContext: RoomContext
     @State var geometry: GeometryProxy
     
     var body: some View {
@@ -16,16 +16,16 @@ struct MessagesView: View {
                         alignment: .center,
                         spacing: 0
                     ) {
-                        ForEach(roomCtx.messages) { message in
+                        ForEach(roomContext.messages) { message in
                             MessageView(message: message)
                         }
                     }
-                    .padding(.vertical, 12)
+                    .padding(.vertical, verticalPadding)
                     .padding(.horizontal, 7)
                 }
                 .onAppear { scrollToBottom(scrollView) }
                 .onChange(
-                    of: roomCtx.messages,
+                    of: roomContext.messages,
                     perform: { _ in
                         scrollToBottom(scrollView)
                     }
@@ -40,14 +40,14 @@ struct MessagesView: View {
             }
             
             HStack(spacing: 0) {
-                TextField("Enter message", text: $roomCtx.textFieldString)
+                TextField("Enter message", text: $roomContext.textFieldString)
                     .textFieldStyle(PlainTextFieldStyle())
                     .disableAutocorrection(true)
                 Button {
-                    roomCtx.sendMessage()
+                    roomContext.sendMessage()
                 } label: {
                     Image(systemName: "paperplane.fill")
-                        .foregroundColor(roomCtx.textFieldString.isEmpty ? nil : .red)
+                        .foregroundColor(roomContext.textFieldString.isEmpty ? nil : .red)
                 }
                 .buttonStyle(.borderless)
             }
@@ -63,13 +63,18 @@ struct MessagesView: View {
     }
 }
 
-// MARK: Private
+// MARK: - Private
 
 extension MessagesView {
     private func scrollToBottom(_ scrollView: ScrollViewProxy) {
-        guard let last = roomCtx.messages.last else { return }
+        guard let last = roomContext.messages.last else { return }
         withAnimation {
             scrollView.scrollTo(last.id)
         }
     }
 }
+
+private let textPadding: CGFloat = 8.0
+private let textCornerRadius: CGFloat = 8.0
+private let verticalPadding: CGFloat = 15.0
+private let horizontalPadding: CGFloat = 5.0

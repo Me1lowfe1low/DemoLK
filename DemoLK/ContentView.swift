@@ -13,7 +13,6 @@ struct ContentView: View {
             .environmentObject(roomContext.room)
             .environment(\.colorScheme, .dark)
             .onDisappear {
-                print("🙈 onDisappear")
                 Task {
                     try await roomContext.disconnect()
                 }

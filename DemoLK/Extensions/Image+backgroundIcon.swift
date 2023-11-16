@@ -1,18 +1,18 @@
 import SwiftUI
 
 extension Image {
-    func bgView(
+    func backgroundIcon(
         geometry: GeometryProxy
     ) -> some View {
         self
             .resizable()
             .aspectRatio(contentMode: .fit)
-            .foregroundColor(Color.gray)
+            .foregroundColor(imageColor)
             .frame(
                 width: min(
                     geometry.size.width,
                     geometry.size.height
-                ) * 0.3
+                ) * imageSizingCoefficient
             )
             .frame(
                 maxWidth: .infinity,
@@ -20,3 +20,14 @@ extension Image {
             )
     }
 }
+
+private let imageSizingCoefficient: CGFloat = 0.3
+private let imageColor: Color = .gray
+
+#if DEBUG
+#Preview {
+    GeometryReader { geometry in
+        Image(systemName: "paperplane.fill").backgroundIcon(geometry: geometry)
+    }
+}
+#endif

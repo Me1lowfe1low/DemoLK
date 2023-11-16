@@ -11,20 +11,6 @@ struct RoomSwitchView: View {
         room.connectionState.isConnected || room.connectionState.isReconnecting
     }
     
-    private func computeTitle() -> String {
-        if shouldShowRoomView {
-            let elements = [
-                room.name,
-                room.localParticipant?.name,
-                room.localParticipant?.identity
-            ]
-            
-            return elements.compactMap { $0 }.filter { !$0.isEmpty }.joined(separator: " ")
-        }
-        
-        return "DemoLK"
-    }
-    
     var body: some View {
         ZStack {
             Color.black
@@ -37,5 +23,23 @@ struct RoomSwitchView: View {
             }
         }
         .navigationTitle(computeTitle())
+    }
+}
+
+// MARK: - Private
+
+extension RoomSwitchView {
+    private func computeTitle() -> String {
+        if shouldShowRoomView {
+            let elements = [
+                room.name,
+                room.localParticipant?.name,
+                room.localParticipant?.identity
+            ]
+            
+            return elements.compactMap { $0 }.filter { !$0.isEmpty }.joined(separator: " ")
+        }
+        
+        return "DemoLK"
     }
 }

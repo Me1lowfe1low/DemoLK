@@ -14,16 +14,21 @@ struct MessageView: View {
             }
             
             Text(message.text)
-                .padding(8)
+                .padding(textPadding)
                 .background(isMe ? .red : .gray)
                 .foregroundColor(Color.white)
-                .cornerRadius(18)
+                .cornerRadius(textCornerRadius)
             
             if !isMe {
                 Spacer()
             }
         }
-        .padding(.vertical, 5)
-        .padding(.horizontal, 10)
+        .padding(.vertical, verticalPadding)
+        .padding(.horizontal, horizontalPadding)
     }
 }
+
+private let textPadding: CGFloat = 8.0
+private let textCornerRadius: CGFloat = 8.0
+private let verticalPadding: CGFloat = 5.0
+private let horizontalPadding: CGFloat = 10.0

@@ -14,7 +14,7 @@ struct ConnectionTextField: View {
     var body: some View {
         VStack(
             alignment: .leading,
-            spacing: 10.0
+            spacing: verticalSpacing
         ) {
             Text(title)
                 .fontWeight(.bold)
@@ -37,6 +37,7 @@ struct ConnectionTextField: View {
     }
 }
 
+private let verticalSpacing: CGFloat = 10.0
 private let overlayCornerRadius: CGFloat = 4.0
 private let overlayBorderColor: Color = .white
 private let overlayBorderColorOpacity: CGFloat = 0.7
