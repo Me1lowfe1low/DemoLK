@@ -13,10 +13,8 @@ struct ParticipantView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            
             ZStack(alignment: .bottom) {
-                // Background color
-                Color.customGray1
+                Color(.lightGray)
                     .ignoresSafeArea()
                 
                 // VideoView for the Participant

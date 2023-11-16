@@ -3,8 +3,8 @@ import SwiftUI
 import LiveKit
 
 struct ConnectView: View {
-    @EnvironmentObject var appCtx: AppContext
-    @EnvironmentObject var roomCtx: RoomContext
+    @EnvironmentObject var applicationContext: AppContext
+    @EnvironmentObject var roomContext: RoomContext
     @EnvironmentObject var room: Room
     
     var body: some View {
@@ -12,50 +12,44 @@ struct ConnectView: View {
             ScrollView {
                 VStack(
                     alignment: .center,
-                    spacing: 40.0
+                    spacing: connectViewVerticalSpacing
                 ) {
-                    VStack(spacing: 10) {
-                        Text("SDK Version \(LiveKit.version)")
-                            .opacity(0.5)
+                    VStack {
+                        Text("LiveKit SDK Version \(LiveKit.version)")
+                            .opacity(textFieldOpacity)
                     }
                     
-                    VStack(spacing: 15) {
-                        ConnectionTextField(title: "Server URL", text: $roomCtx.url, type: .URL)
-                        ConnectionTextField(title: "Token", text: $roomCtx.token, type: .ascii)
-                        ConnectionTextField(title: "E2EE Key", text: $roomCtx.e2eeKey, type: .ascii)
+                    VStack(spacing: textFieldSpacing) {
+                        ConnectionTextField(title: "Server URL", text: $roomContext.url, type: .URL)
+                        ConnectionTextField(title: "Token", text: $roomContext.token, type: .ascii)
+                        ConnectionTextField(title: "E2EE Key", text: $roomContext.e2eeKey, type: .ascii)
                     }
-                    .frame(maxWidth: 350)
-                    .padding(.horizontal, 10)
+                    .padding(.horizontal, textFieldHorizontalPadding)
                     
                     if case .connecting = room.connectionState {
                         ProgressView()
                     } else {
-                        HStack(alignment: .center) {
-                            Spacer()
-                            
-                            ConnectionButton(title: "Connect") {
-                                Task {
-                                    let _ = try await roomCtx.connect()
-                                }
+                        ConnectionButton(title: "Connect") {
+                            Task {
+                                let _ = try await roomContext.connect()
                             }
-                            .foregroundColor(Color.white)
-                            
-                            Spacer()
                         }
+                        .foregroundColor(Color.white)
+                        .frame(alignment: .center)
                     }
                 }
                 .padding()
-                .frame(width: geometry.size.width)      // Make the scroll view full-width
-                .frame(minHeight: geometry.size.height) // Set the content’s min height to the parent
+                .frame(width: geometry.size.width)
+                .frame(minHeight: geometry.size.height)
             }
         }
-        .alert(isPresented: $roomCtx.shouldShowDisconnectReason) {
+        .alert(isPresented: $roomContext.shouldShowDisconnectReason) {
             Alert(
                 title: Text("Disconnected"),
                 message: Text(
                     "Reason: " + (
-                        roomCtx.latestError != nil
-                        ? String(describing: roomCtx.latestError!)
+                        roomContext.latestError != nil
+                        ? String(describing: roomContext.latestError!)
                         : "Unknown"
                     )
                 )
@@ -63,3 +57,14 @@ struct ConnectView: View {
         }
     }
 }
+
+private let connectViewVerticalSpacing: CGFloat = 40.0
+private let textFieldOpacity: CGFloat = 0.5
+private let textFieldSpacing: CGFloat = 15.0
+private let textFieldHorizontalPadding: CGFloat = 15.0
+
+#if DEBUG
+#Preview {
+    ContentView()
+}
+#endif

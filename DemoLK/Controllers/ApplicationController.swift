@@ -57,7 +57,5 @@ final class AppContext: ObservableObject {
                 self.inputDevice = Room.audioDeviceModule.inputDevice
             }
         }
-        
-        print("🦕 appContext initiated")
     }
 }

@@ -17,16 +17,18 @@
 		281341722AFCA6B500FC13A9 /* ApplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281341712AFCA6B500FC13A9 /* ApplicationController.swift */; };
 		2813417A2AFCA8F200FC13A9 /* RoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281341792AFCA8F200FC13A9 /* RoomView.swift */; };
 		2813417C2AFCA97000FC13A9 /* ConnectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2813417B2AFCA97000FC13A9 /* ConnectView.swift */; };
-		281341812AFCABE300FC13A9 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281341802AFCABE300FC13A9 /* Color.swift */; };
-		281341832AFCAC1000FC13A9 /* LKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281341822AFCAC1000FC13A9 /* LKButton.swift */; };
-		281341852AFCAC3C00FC13A9 /* LKTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281341842AFCAC3C00FC13A9 /* LKTextField.swift */; };
+		281341832AFCAC1000FC13A9 /* ConnectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281341822AFCAC1000FC13A9 /* ConnectionButton.swift */; };
+		281341852AFCAC3C00FC13A9 /* ConnectionTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281341842AFCAC3C00FC13A9 /* ConnectionTextField.swift */; };
 		2813418D2AFCAFD200FC13A9 /* ParticipantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2813418C2AFCAFD200FC13A9 /* ParticipantView.swift */; };
 		281341912AFCB98F00FC13A9 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281341902AFCB98F00FC13A9 /* Preferences.swift */; };
-		281341932AFCE3E700FC13A9 /* HorVStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281341922AFCE3E700FC13A9 /* HorVStack.swift */; };
-		281341952AFCE44500FC13A9 /* HorVGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281341942AFCE44500FC13A9 /* HorVGrid.swift */; };
+		281341932AFCE3E700FC13A9 /* AdaptiveStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281341922AFCE3E700FC13A9 /* AdaptiveStack.swift */; };
+		281341952AFCE44500FC13A9 /* AdaptiveGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281341942AFCE44500FC13A9 /* AdaptiveGrid.swift */; };
 		281341972AFCE47C00FC13A9 /* GeometryProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281341962AFCE47C00FC13A9 /* GeometryProxy.swift */; };
 		2813419A2AFCE56200FC13A9 /* ParticipantLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281341992AFCE56200FC13A9 /* ParticipantLayout.swift */; };
 		2813419C2AFCEBD500FC13A9 /* Image+bgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2813419B2AFCEBD500FC13A9 /* Image+bgView.swift */; };
+		28AE83572B0499AB00B1E30B /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AE83562B0499AB00B1E30B /* Message.swift */; };
+		28AE83592B04E0AC00B1E30B /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AE83582B04E0AC00B1E30B /* MessagesView.swift */; };
+		28AE835C2B04E68200B1E30B /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AE835B2B04E68200B1E30B /* MessageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,16 +42,18 @@
 		281341712AFCA6B500FC13A9 /* ApplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationController.swift; sourceTree = "<group>"; };
 		281341792AFCA8F200FC13A9 /* RoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomView.swift; sourceTree = "<group>"; };
 		2813417B2AFCA97000FC13A9 /* ConnectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectView.swift; sourceTree = "<group>"; };
-		281341802AFCABE300FC13A9 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
-		281341822AFCAC1000FC13A9 /* LKButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LKButton.swift; sourceTree = "<group>"; };
-		281341842AFCAC3C00FC13A9 /* LKTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LKTextField.swift; sourceTree = "<group>"; };
+		281341822AFCAC1000FC13A9 /* ConnectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionButton.swift; sourceTree = "<group>"; };
+		281341842AFCAC3C00FC13A9 /* ConnectionTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionTextField.swift; sourceTree = "<group>"; };
 		2813418C2AFCAFD200FC13A9 /* ParticipantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantView.swift; sourceTree = "<group>"; };
 		281341902AFCB98F00FC13A9 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
-		281341922AFCE3E700FC13A9 /* HorVStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorVStack.swift; sourceTree = "<group>"; };
-		281341942AFCE44500FC13A9 /* HorVGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorVGrid.swift; sourceTree = "<group>"; };
+		281341922AFCE3E700FC13A9 /* AdaptiveStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveStack.swift; sourceTree = "<group>"; };
+		281341942AFCE44500FC13A9 /* AdaptiveGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveGrid.swift; sourceTree = "<group>"; };
 		281341962AFCE47C00FC13A9 /* GeometryProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryProxy.swift; sourceTree = "<group>"; };
 		281341992AFCE56200FC13A9 /* ParticipantLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantLayout.swift; sourceTree = "<group>"; };
 		2813419B2AFCEBD500FC13A9 /* Image+bgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+bgView.swift"; sourceTree = "<group>"; };
+		28AE83562B0499AB00B1E30B /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		28AE83582B04E0AC00B1E30B /* MessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
+		28AE835B2B04E68200B1E30B /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,9 +110,11 @@
 		281341682AFCA54100FC13A9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				28AE835E2B054BA900B1E30B /* ConnectionView */,
+				28AE835D2B05472B00B1E30B /* ViewPrimitives */,
+				28AE835A2B04E66F00B1E30B /* Message */,
 				281341692AFCA54F00FC13A9 /* RoomSwitchView.swift */,
 				281341792AFCA8F200FC13A9 /* RoomView.swift */,
-				2813417B2AFCA97000FC13A9 /* ConnectView.swift */,
 				2813418C2AFCAFD200FC13A9 /* ParticipantView.swift */,
 				281341992AFCE56200FC13A9 /* ParticipantLayout.swift */,
 			);
@@ -128,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				281341902AFCB98F00FC13A9 /* Preferences.swift */,
+				28AE83562B0499AB00B1E30B /* Message.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -135,15 +142,38 @@
 		2813417D2AFCAB9F00FC13A9 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				281341802AFCABE300FC13A9 /* Color.swift */,
-				281341822AFCAC1000FC13A9 /* LKButton.swift */,
-				281341842AFCAC3C00FC13A9 /* LKTextField.swift */,
-				281341922AFCE3E700FC13A9 /* HorVStack.swift */,
-				281341942AFCE44500FC13A9 /* HorVGrid.swift */,
 				281341962AFCE47C00FC13A9 /* GeometryProxy.swift */,
 				2813419B2AFCEBD500FC13A9 /* Image+bgView.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		28AE835A2B04E66F00B1E30B /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				28AE835B2B04E68200B1E30B /* MessageView.swift */,
+				28AE83582B04E0AC00B1E30B /* MessagesView.swift */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		28AE835D2B05472B00B1E30B /* ViewPrimitives */ = {
+			isa = PBXGroup;
+			children = (
+				281341922AFCE3E700FC13A9 /* AdaptiveStack.swift */,
+				281341942AFCE44500FC13A9 /* AdaptiveGrid.swift */,
+			);
+			path = ViewPrimitives;
+			sourceTree = "<group>";
+		};
+		28AE835E2B054BA900B1E30B /* ConnectionView */ = {
+			isa = PBXGroup;
+			children = (
+				281341822AFCAC1000FC13A9 /* ConnectionButton.swift */,
+				281341842AFCAC3C00FC13A9 /* ConnectionTextField.swift */,
+				2813417B2AFCA97000FC13A9 /* ConnectView.swift */,
+			);
+			path = ConnectionView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -225,19 +255,21 @@
 				281341702AFCA69600FC13A9 /* RoomController.swift in Sources */,
 				2813419C2AFCEBD500FC13A9 /* Image+bgView.swift in Sources */,
 				2813417C2AFCA97000FC13A9 /* ConnectView.swift in Sources */,
+				28AE83592B04E0AC00B1E30B /* MessagesView.swift in Sources */,
+				28AE835C2B04E68200B1E30B /* MessageView.swift in Sources */,
+				28AE83572B0499AB00B1E30B /* Message.swift in Sources */,
 				2813415D2AFCA4B100FC13A9 /* ContentView.swift in Sources */,
-				281341812AFCABE300FC13A9 /* Color.swift in Sources */,
 				2813419A2AFCE56200FC13A9 /* ParticipantLayout.swift in Sources */,
 				2813415B2AFCA4B100FC13A9 /* DemoLKApp.swift in Sources */,
 				2813417A2AFCA8F200FC13A9 /* RoomView.swift in Sources */,
-				281341952AFCE44500FC13A9 /* HorVGrid.swift in Sources */,
+				281341952AFCE44500FC13A9 /* AdaptiveGrid.swift in Sources */,
 				281341912AFCB98F00FC13A9 /* Preferences.swift in Sources */,
-				281341852AFCAC3C00FC13A9 /* LKTextField.swift in Sources */,
-				281341932AFCE3E700FC13A9 /* HorVStack.swift in Sources */,
+				281341852AFCAC3C00FC13A9 /* ConnectionTextField.swift in Sources */,
+				281341932AFCE3E700FC13A9 /* AdaptiveStack.swift in Sources */,
 				2813418D2AFCAFD200FC13A9 /* ParticipantView.swift in Sources */,
 				281341972AFCE47C00FC13A9 /* GeometryProxy.swift in Sources */,
 				2813416A2AFCA54F00FC13A9 /* RoomSwitchView.swift in Sources */,
-				281341832AFCAC1000FC13A9 /* LKButton.swift in Sources */,
+				281341832AFCAC1000FC13A9 /* ConnectionButton.swift in Sources */,
 				281341722AFCA6B500FC13A9 /* ApplicationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

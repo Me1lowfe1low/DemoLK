@@ -3,7 +3,6 @@ import LiveKit
 
 let sync = Preferences()
 
-// Attaches RoomContext and Room to the environment
 struct ContentView: View {
     @EnvironmentObject var applicationContext: AppContext
     @StateObject var roomContext = RoomContext(store: sync)

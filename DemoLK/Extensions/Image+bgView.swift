@@ -7,7 +7,7 @@ extension Image {
         self
             .resizable()
             .aspectRatio(contentMode: .fit)
-            .foregroundColor(Color.customGray2)
+            .foregroundColor(Color.gray)
             .frame(
                 width: min(
                     geometry.size.width,

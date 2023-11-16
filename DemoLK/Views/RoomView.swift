@@ -16,7 +16,7 @@ struct RoomView: View {
     
     @State private var screenPickerPresented = false
     @State private var showConnectionTime = true
-    
+
     func sortedParticipants() -> [Participant] {
         room.allParticipants.values.sorted { p1, p2 in
             if p1 is LocalParticipant { return true }
@@ -27,7 +27,7 @@ struct RoomView: View {
     
     func content(geometry: GeometryProxy) -> some View {
         VStack {
-            HorVStack(
+            AdaptiveStack(
                 axis: geometry.isTall ? .vertical : .horizontal,
                 spacing: 5
             ) {
@@ -43,7 +43,7 @@ struct RoomView: View {
                             .overlay(
                                 RoundedRectangle(cornerRadius: 5)
                                     .stroke(
-                                        Color.customRed.opacity(0.7),
+                                        .red.opacity(0.7),
                                         lineWidth: 5.0
                                     )
                             )
@@ -68,6 +68,10 @@ struct RoomView: View {
                     minHeight: 0,
                     maxHeight: .infinity
                 )
+
+                if roomCtx.showMessagesView {
+                    MessagesView(geometry: geometry)
+                }
             }
         }
         .padding(5)
@@ -162,7 +166,16 @@ struct RoomView: View {
                     // disable while publishing/un-publishing
                     .disabled(isScreenSharePublishingBusy)
                 }
-                
+                    // Toggle messages view (chat example)
+                Button(action: {
+                    withAnimation {
+                        roomCtx.showMessagesView.toggle()
+                    }
+                },
+                       label: {
+                    Image(systemName: "message.fill")
+                        .renderingMode(roomCtx.showMessagesView ? .original : .template)
+                })
                 Spacer()
                 
                 // Disconnect
@@ -177,7 +190,10 @@ struct RoomView: View {
             }
         }
         .onAppear {
-            Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { _ in
+            Timer.scheduledTimer(
+                withTimeInterval: 3,
+                repeats: false
+            ) { _ in
                 DispatchQueue.main.async {
                     withAnimation {
                         self.showConnectionTime = false

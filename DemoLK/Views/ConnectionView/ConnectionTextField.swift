@@ -26,15 +26,21 @@ struct ConnectionTextField: View {
                 .keyboardType(type.toiOSType())
                 .padding()
                 .overlay(
-                    RoundedRectangle(cornerRadius: 4.0)
+                    RoundedRectangle(cornerRadius: overlayCornerRadius)
                         .strokeBorder(
-                            Color.white.opacity(0.3),
-                            style: StrokeStyle(lineWidth: 1.0)
+                            overlayBorderColor.opacity(overlayBorderColorOpacity),
+                            style: StrokeStyle(lineWidth: overlayBorderWidth)
                         )
                 )
-        }.frame(maxWidth: .infinity)
+        }
+        .frame(maxWidth: .infinity)
     }
 }
+
+private let overlayCornerRadius: CGFloat = 4.0
+private let overlayBorderColor: Color = .white
+private let overlayBorderColorOpacity: CGFloat = 0.7
+private let overlayBorderWidth: CGFloat = 1.0
 
 extension ConnectionTextField.`Type` {
     func toiOSType() -> UIKeyboardType {
@@ -45,3 +51,19 @@ extension ConnectionTextField.`Type` {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    ZStack {
+        Color.gray
+        .opacity(0.7)
+        
+        ConnectionTextField(
+            title: "Temporary field",
+            text: .constant("Temporary text"),
+            type: .defaultValue
+        )
+        .padding()
+    }
+}
+#endif

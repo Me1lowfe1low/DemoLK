@@ -30,7 +30,7 @@ struct ParticipantLayout<Content: View>: View {
               : .horizontal
             ]
         ) {
-            HorVGrid(
+            AdaptiveGrid(
                 axis: axis,
                 columns: [GridItem(.flexible())],
                 spacing: spacing
@@ -73,13 +73,13 @@ struct ParticipantLayout<Content: View>: View {
                 switch views.count {
                     // simply return first view
                     case 1: views[0]
-                    case 3: HorVStack(
+                    case 3: AdaptiveStack(
                         axis: verticalWhenTall,
                         spacing: spacing
                     ) {
                         views[0]
                         
-                        HorVStack(
+                        AdaptiveStack(
                             axis: horizontalWhenTall,
                             spacing: spacing
                         ) {
@@ -87,7 +87,7 @@ struct ParticipantLayout<Content: View>: View {
                             views[2]
                         }
                     }
-                    case 5: HorVStack(
+                    case 5: AdaptiveStack(
                         axis: verticalWhenTall,
                         spacing: spacing
                     ) {

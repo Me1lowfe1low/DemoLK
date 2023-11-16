@@ -7,11 +7,11 @@ struct RoomSwitchView: View {
     @EnvironmentObject var roomContext: RoomContext
     @EnvironmentObject var room: Room
     
-    var shouldShowRoomView: Bool {
+    private var shouldShowRoomView: Bool {
         room.connectionState.isConnected || room.connectionState.isReconnecting
     }
     
-    func computeTitle() -> String {
+    private func computeTitle() -> String {
         if shouldShowRoomView {
             let elements = [
                 room.name,
@@ -32,14 +32,8 @@ struct RoomSwitchView: View {
             
             if shouldShowRoomView {
                 RoomView()
-                    .onAppear {
-                        print("🦄 Showing room")
-                    }
             } else {
                 ConnectView()
-                    .onAppear {
-                        print("🦄 Showing connection")
-                    }
             }
         }
         .navigationTitle(computeTitle())

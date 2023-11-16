@@ -42,12 +42,15 @@ final class RoomContext: ObservableObject {
     @Published var focusParticipant: Participant?
     @Published var textFieldString: String = ""
     
+    @Published var showMessagesView: Bool = false
+    @Published var messages: [RoomMessage] = []
+    
     public var latestError: DisconnectReason?
     public let room = Room()
     
     private let jsonEncoder = JSONEncoder()
     private let jsonDecoder = JSONDecoder()
-
+    
     private var store: Preferences
     
     public init(store: Preferences) {
@@ -70,7 +73,6 @@ final class RoomContext: ObservableObject {
     
     deinit {
         UIApplication.shared.isIdleTimerDisabled = false
-        print("RoomContext.deinit")
     }
     
     @MainActor
@@ -125,6 +127,36 @@ final class RoomContext: ObservableObject {
         print("Disconnecting...")
         try await room.disconnect()
     }
+    
+    func sendMessage() {
+        guard let localParticipant = room.localParticipant else {
+            print("LocalParticipant doesn't exist")
+            return
+        }
+        
+            // Make sure the message is not empty
+        guard !textFieldString.isEmpty else { return }
+        
+        let roomMessage = RoomMessage(
+            messageId: UUID().uuidString,
+            senderSid: localParticipant.sid,
+            senderIdentity: localParticipant.identity,
+            text: textFieldString
+        )
+        
+        textFieldString = ""
+        messages.append(roomMessage)
+        
+        Task {
+            do {
+                let json = try jsonEncoder.encode(roomMessage)
+                try await localParticipant.publish(data: json)
+            } catch let error {
+                print("Failed to encode data \(error)")
+            }
+            
+        }
+    }
 }
 
 extension RoomContext: RoomDelegate {
@@ -152,6 +184,8 @@ extension RoomContext: RoomDelegate {
                 self.shouldShowDisconnectReason = true
                 // Reset state
                 self.focusParticipant = nil
+                self.showMessagesView = false
+                self.messages.removeAll()
                 self.textFieldString = ""
             }
         }
@@ -176,6 +210,25 @@ extension RoomContext: RoomDelegate {
         participant: RemoteParticipant?,
         didReceive data: Data
     ) {
-        print("🐋 room(). Message resolver")
+        do {
+            print("🐋 room(). Message resolver")
+            let roomMessage = try jsonDecoder.decode(
+                RoomMessage.self,
+                from: data
+            )
+            
+            // Update UI from main queue
+            DispatchQueue.main.async {
+                withAnimation {
+                        // Add messages to the @Published messages property
+                        // which will trigger the UI to update
+                    self.messages.append(roomMessage)
+                        // Show the messages view when new messages arrive
+                    self.showMessagesView = true
+                }
+            }
+        } catch let error {
+            print("Failed to decode data \(error)")
+        }
     }
 }
