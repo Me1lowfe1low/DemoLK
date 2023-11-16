@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct LKTextField: View {
+struct ConnectionTextField: View {
     enum `Type` {
         case defaultValue
         case URL
@@ -36,7 +36,7 @@ struct LKTextField: View {
     }
 }
 
-extension LKTextField.`Type` {
+extension ConnectionTextField.`Type` {
     func toiOSType() -> UIKeyboardType {
         switch self {
             case .defaultValue: return .default

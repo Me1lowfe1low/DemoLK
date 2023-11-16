@@ -20,9 +20,9 @@ struct ConnectView: View {
                     }
                     
                     VStack(spacing: 15) {
-                        LKTextField(title: "Server URL", text: $roomCtx.url, type: .URL)
-                        LKTextField(title: "Token", text: $roomCtx.token, type: .ascii)
-                        LKTextField(title: "E2EE Key", text: $roomCtx.e2eeKey, type: .ascii)
+                        ConnectionTextField(title: "Server URL", text: $roomCtx.url, type: .URL)
+                        ConnectionTextField(title: "Token", text: $roomCtx.token, type: .ascii)
+                        ConnectionTextField(title: "E2EE Key", text: $roomCtx.e2eeKey, type: .ascii)
                     }
                     .frame(maxWidth: 350)
                     .padding(.horizontal, 10)
@@ -33,7 +33,7 @@ struct ConnectView: View {
                         HStack(alignment: .center) {
                             Spacer()
                             
-                            LKButton(title: "Connect") {
+                            ConnectionButton(title: "Connect") {
                                 Task {
                                     let _ = try await roomCtx.connect()
                                 }

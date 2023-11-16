@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct HorVGrid<Content: View>: View {
+struct AdaptiveGrid<Content: View>: View {
     let axis: Axis
     let spacing: CGFloat?
     let content: () -> Content

@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct HorVStack<Content: View>: View {
+struct AdaptiveStack<Content: View>: View {
     let axis: Axis
     let horizontalAlignment: HorizontalAlignment
     let verticalAlignment: VerticalAlignment
