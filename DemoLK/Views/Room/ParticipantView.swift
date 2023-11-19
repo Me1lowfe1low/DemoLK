@@ -3,7 +3,7 @@ import LiveKit
 
 struct ParticipantView: View {
     @ObservedObject var participant: Participant
-    @EnvironmentObject var appCtx: AppContext
+    @EnvironmentObject var applicationContext: AppContext
     
     var videoViewMode: VideoView.LayoutMode = .fill
     var onTap: ((_ participant: Participant) -> Void)?
@@ -20,22 +20,40 @@ struct ParticipantView: View {
                 // VideoView for the Participant
                 if let publication = participant.mainVideoPublication,
                    !publication.muted,
-                   let track = publication.track as? VideoTrack,
-                   appCtx.videoViewVisible {
+                   var track = publication.track as? VideoTrack,
+                   applicationContext.videoViewVisible {
                     ZStack(alignment: .topLeading) {
-                        SwiftUIVideoView(
-                            track,
-                            layoutMode: videoViewMode,
-                            mirrorMode: appCtx.videoViewMirrored 
-                            ? .mirror
-                            : .auto,
-                            renderMode: appCtx.preferSampleBufferRendering 
-                            ? .sampleBuffer
-                            : .auto,
-                            debugMode: appCtx.showInformationOverlay,
-                            isRendering: $isRendering,
-                            dimensions: $dimensions
-                        )
+                        if participant.firstScreenShareVideoTrack != nil,
+                        let tempTrack = participant.firstScreenShareVideoTrack as? VideoTrack{
+                            
+                            SwiftUIVideoView(
+                                tempTrack,
+                                layoutMode: videoViewMode,
+                                mirrorMode: applicationContext.videoViewMirrored
+                                ? .mirror
+                                : .auto,
+                                renderMode: applicationContext.preferSampleBufferRendering
+                                ? .sampleBuffer
+                                : .auto,
+                                debugMode: applicationContext.showInformationOverlay,
+                                isRendering: $isRendering,
+                                dimensions: .constant(Dimensions(width: 300, height: 300))
+                            )
+                        } else {
+                            SwiftUIVideoView(
+                                track,
+                                layoutMode: videoViewMode,
+                                mirrorMode: applicationContext.videoViewMirrored
+                                ? .mirror
+                                : .auto,
+                                renderMode: applicationContext.preferSampleBufferRendering
+                                ? .sampleBuffer
+                                : .auto,
+                                debugMode: applicationContext.showInformationOverlay,
+                                isRendering: $isRendering,
+                                dimensions: $dimensions
+                            )
+                        }
                         
                         if !isRendering {
                             ProgressView()
@@ -63,7 +81,7 @@ struct ParticipantView: View {
                         SwiftUIVideoView(
                             subVideoTrack,
                             layoutMode: .fill,
-                            mirrorMode: appCtx.videoViewMirrored 
+                            mirrorMode: applicationContext.videoViewMirrored 
                             ? .mirror
                             : .auto
                         )

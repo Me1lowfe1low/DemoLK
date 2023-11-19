@@ -28,66 +28,19 @@ struct ParticipantLayout<Content: View>: View {
                     geometry: geometry
                 )
             } else {
-                let verticalWhenTall: Axis = geometry.isTall ? .vertical : .horizontal
-                let horizontalWhenTall: Axis = geometry.isTall ? .horizontal : .vertical
+                let computedColumn = computeColumn(with: geometry)
                 
-                switch views.count {
-                    // simply return first view
-                    case 1: views[0]
-                    case 3: AdaptiveStack(
-                        axis: verticalWhenTall,
-                        spacing: spacing
-                    ) {
-                        views[0]
-                        
-                        AdaptiveStack(
-                            axis: horizontalWhenTall,
-                            spacing: spacing
-                        ) {
-                            views[1]
-                            views[2]
-                        }
-                    }
-                    case 5: AdaptiveStack(
-                        axis: verticalWhenTall,
-                        spacing: spacing
-                    ) {
-                        views[0]
-                        if geometry.isTall {
-                            HStack(spacing: spacing) {
-                                views[1]
-                                views[2]
-                            }
-                            HStack(spacing: spacing) {
-                                views[3]
-                                views[4]
-                                
-                            }
-                        } else {
-                            VStack(spacing: spacing) {
-                                views[1]
-                                views[3]
-                            }
-                            VStack(spacing: spacing) {
-                                views[2]
-                                views[4]
-                            }
-                        }
-                    }
-                    default:
-                        let c = computeColumn(with: geometry)
-                        VStack(spacing: spacing) {
-                            ForEach(0...(c.y - 1), id: \.self) { y in
-                                HStack(spacing: spacing) {
-                                    ForEach(0...(c.x - 1), id: \.self) { x in
-                                        let index = (y * c.x) + x
-                                        if index < views.count {
-                                            views[index]
-                                        }
-                                    }
+                VStack(spacing: spacing) {
+                    ForEach(0...(computedColumn.yVal - 1), id: \.self) { yValue in
+                        HStack(spacing: spacing) {
+                            ForEach(0...(computedColumn.xVal - 1), id: \.self) { xValue in
+                                let index = (yValue * computedColumn.xVal) + xValue
+                                if index < views.count {
+                                    views[index]
                                 }
                             }
                         }
+                    }
                 }
             }
         }
@@ -97,11 +50,11 @@ struct ParticipantLayout<Content: View>: View {
 // MARK: -Private
 
 extension ParticipantLayout {
-    private func computeColumn(with geometry: GeometryProxy) -> (x: Int, y: Int) {
-        let sqr = Double(views.count).squareRoot()
-        let r: [Int] = [Int(sqr.rounded()), Int(sqr.rounded(.up))]
-        let c = geometry.isTall ? r : r.reversed()
-        return (x: c[0], y: c[1])
+    private func computeColumn(with geometry: GeometryProxy) -> (xVal: Int, yVal: Int) {
+        let sqrt = Double(views.count).squareRoot()
+        let result: [Int] = [Int(sqrt.rounded()), Int(sqrt.rounded(.up))]
+        let column = geometry.isTall ? result : result.reversed()
+        return (xVal: column[0], yVal: column[1])
     }
     
     private func grid(

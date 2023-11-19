@@ -30,7 +30,36 @@
 		28AE83592B04E0AC00B1E30B /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AE83582B04E0AC00B1E30B /* MessagesView.swift */; };
 		28AE835C2B04E68200B1E30B /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AE835B2B04E68200B1E30B /* MessageView.swift */; };
 		28AE83612B05C2EA00B1E30B /* RoomContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AE83602B05C2EA00B1E30B /* RoomContent.swift */; };
+		28AE83632B060FB600B1E30B /* ToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AE83622B060FB600B1E30B /* ToolbarView.swift */; };
+		28AE83902B071BCD00B1E30B /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28AE836A2B0634E100B1E30B /* ReplayKit.framework */; };
+		28AE83932B071BCD00B1E30B /* SampleHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AE83922B071BCD00B1E30B /* SampleHandler.swift */; };
+		28AE83972B071BCD00B1E30B /* BroadcastExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 28AE838F2B071BCD00B1E30B /* BroadcastExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		28AE839D2B071CA000B1E30B /* LiveKit in Frameworks */ = {isa = PBXBuildFile; productRef = 28AE839C2B071CA000B1E30B /* LiveKit */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		28AE83952B071BCD00B1E30B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2813414F2AFCA4B100FC13A9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 28AE838E2B071BCD00B1E30B;
+			remoteInfo = BroadcastExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		28AE83762B0634E100B1E30B /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				28AE83972B071BCD00B1E30B /* BroadcastExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		281341572AFCA4B100FC13A9 /* DemoLK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoLK.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -56,6 +85,13 @@
 		28AE83582B04E0AC00B1E30B /* MessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
 		28AE835B2B04E68200B1E30B /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		28AE83602B05C2EA00B1E30B /* RoomContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomContent.swift; sourceTree = "<group>"; };
+		28AE83622B060FB600B1E30B /* ToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarView.swift; sourceTree = "<group>"; };
+		28AE836A2B0634E100B1E30B /* ReplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReplayKit.framework; path = System/Library/Frameworks/ReplayKit.framework; sourceTree = SDKROOT; };
+		28AE83882B06355A00B1E30B /* DemoLKDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DemoLKDebug.entitlements; sourceTree = "<group>"; };
+		28AE838F2B071BCD00B1E30B /* BroadcastExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BroadcastExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		28AE83922B071BCD00B1E30B /* SampleHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleHandler.swift; sourceTree = "<group>"; };
+		28AE83942B071BCD00B1E30B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		28AE839B2B071BD500B1E30B /* BroadcastExtensionDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BroadcastExtensionDebug.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +103,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		28AE838C2B071BCD00B1E30B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				28AE83902B071BCD00B1E30B /* ReplayKit.framework in Frameworks */,
+				28AE839D2B071CA000B1E30B /* LiveKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -74,6 +119,8 @@
 			isa = PBXGroup;
 			children = (
 				281341592AFCA4B100FC13A9 /* DemoLK */,
+				28AE83912B071BCD00B1E30B /* BroadcastExtension */,
+				28AE83692B0634E100B1E30B /* Frameworks */,
 				281341582AFCA4B100FC13A9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -82,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				281341572AFCA4B100FC13A9 /* DemoLK.app */,
+				28AE838F2B071BCD00B1E30B /* BroadcastExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -89,6 +137,7 @@
 		281341592AFCA4B100FC13A9 /* DemoLK */ = {
 			isa = PBXGroup;
 			children = (
+				28AE83882B06355A00B1E30B /* DemoLKDebug.entitlements */,
 				2813415A2AFCA4B100FC13A9 /* DemoLKApp.swift */,
 				2813415C2AFCA4B100FC13A9 /* ContentView.swift */,
 				2813416E2AFCA67300FC13A9 /* Controllers */,
@@ -183,8 +232,27 @@
 				281341992AFCE56200FC13A9 /* ParticipantLayout.swift */,
 				2813418C2AFCAFD200FC13A9 /* ParticipantView.swift */,
 				28AE83602B05C2EA00B1E30B /* RoomContent.swift */,
+				28AE83622B060FB600B1E30B /* ToolbarView.swift */,
 			);
 			path = Room;
+			sourceTree = "<group>";
+		};
+		28AE83692B0634E100B1E30B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				28AE836A2B0634E100B1E30B /* ReplayKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		28AE83912B071BCD00B1E30B /* BroadcastExtension */ = {
+			isa = PBXGroup;
+			children = (
+				28AE839B2B071BD500B1E30B /* BroadcastExtensionDebug.entitlements */,
+				28AE83922B071BCD00B1E30B /* SampleHandler.swift */,
+				28AE83942B071BCD00B1E30B /* Info.plist */,
+			);
+			path = BroadcastExtension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -197,10 +265,12 @@
 				281341532AFCA4B100FC13A9 /* Sources */,
 				281341542AFCA4B100FC13A9 /* Frameworks */,
 				281341552AFCA4B100FC13A9 /* Resources */,
+				28AE83762B0634E100B1E30B /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				28AE83962B071BCD00B1E30B /* PBXTargetDependency */,
 			);
 			name = DemoLK;
 			packageProductDependencies = (
@@ -209,6 +279,26 @@
 			productName = DemoLK;
 			productReference = 281341572AFCA4B100FC13A9 /* DemoLK.app */;
 			productType = "com.apple.product-type.application";
+		};
+		28AE838E2B071BCD00B1E30B /* BroadcastExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 28AE83982B071BCD00B1E30B /* Build configuration list for PBXNativeTarget "BroadcastExtension" */;
+			buildPhases = (
+				28AE838B2B071BCD00B1E30B /* Sources */,
+				28AE838C2B071BCD00B1E30B /* Frameworks */,
+				28AE838D2B071BCD00B1E30B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BroadcastExtension;
+			packageProductDependencies = (
+				28AE839C2B071CA000B1E30B /* LiveKit */,
+			);
+			productName = BroadcastExtension;
+			productReference = 28AE838F2B071BCD00B1E30B /* BroadcastExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -221,6 +311,9 @@
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					281341562AFCA4B100FC13A9 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+					28AE838E2B071BCD00B1E30B = {
 						CreatedOnToolsVersion = 15.0;
 					};
 				};
@@ -242,6 +335,7 @@
 			projectRoot = "";
 			targets = (
 				281341562AFCA4B100FC13A9 /* DemoLK */,
+				28AE838E2B071BCD00B1E30B /* BroadcastExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -253,6 +347,13 @@
 			files = (
 				281341622AFCA4B200FC13A9 /* Preview Assets.xcassets in Resources */,
 				2813415F2AFCA4B200FC13A9 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		28AE838D2B071BCD00B1E30B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,10 +384,27 @@
 				2813416A2AFCA54F00FC13A9 /* RoomSwitchView.swift in Sources */,
 				281341832AFCAC1000FC13A9 /* ConnectionButton.swift in Sources */,
 				281341722AFCA6B500FC13A9 /* ApplicationController.swift in Sources */,
+				28AE83632B060FB600B1E30B /* ToolbarView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		28AE838B2B071BCD00B1E30B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				28AE83932B071BCD00B1E30B /* SampleHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		28AE83962B071BCD00B1E30B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 28AE838E2B071BCD00B1E30B /* BroadcastExtension */;
+			targetProxy = 28AE83952B071BCD00B1E30B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		281341632AFCA4B200FC13A9 /* Debug */ = {
@@ -411,8 +529,10 @@
 		281341662AFCA4B200FC13A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DemoLK/DemoLKDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DemoLK/Preview Content\"";
@@ -443,6 +563,7 @@
 		281341672AFCA4B200FC13A9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -472,6 +593,57 @@
 			};
 			name = Release;
 		};
+		28AE83992B071BCD00B1E30B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = BroadcastExtension/BroadcastExtensionDebug.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GB5Z88B74J;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BroadcastExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = BroadcastExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.DemoLK.lib.DemoLK.BroadcastExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		28AE839A2B071BCD00B1E30B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GB5Z88B74J;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BroadcastExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = BroadcastExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.DemoLK.lib.DemoLK.BroadcastExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -493,6 +665,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		28AE83982B071BCD00B1E30B /* Build configuration list for PBXNativeTarget "BroadcastExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				28AE83992B071BCD00B1E30B /* Debug */,
+				28AE839A2B071BCD00B1E30B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -508,6 +689,11 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		2813416C2AFCA5BB00FC13A9 /* LiveKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2813416B2AFCA5BB00FC13A9 /* XCRemoteSwiftPackageReference "client-sdk-swift" */;
+			productName = LiveKit;
+		};
+		28AE839C2B071CA000B1E30B /* LiveKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2813416B2AFCA5BB00FC13A9 /* XCRemoteSwiftPackageReference "client-sdk-swift" */;
 			productName = LiveKit;
