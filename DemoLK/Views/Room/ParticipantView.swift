@@ -1,5 +1,6 @@
 import SwiftUI
 import LiveKit
+import BroadcastExtension
 
 struct ParticipantView: View {
     @ObservedObject var participant: Participant

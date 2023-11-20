@@ -1,6 +1,8 @@
 import SwiftUI
+import ReplayKit
 import LiveKit
 import WebRTC
+import Combine
 
 let toolbarPlacement: ToolbarItemPlacement = .bottomBar
 
@@ -15,7 +17,8 @@ struct RoomView: View {
     
     @State private var screenPickerPresented = false
     @State private var showConnectionTime = true
-    
+    @State private var screenOpened = false
+
     var body: some View {
         GeometryReader { geometry in
             RoomContent(geometry: geometry)
@@ -33,10 +36,23 @@ struct RoomView: View {
                 
                 ToolbarView(
                     isCameraPublishingBusy: $isCameraPublishingBusy,
-                    isMicrophonePublishingBusy: $isMicrophonePublishingBusy,
-                    isScreenSharePublishingBusy: $isScreenSharePublishingBusy
-                    ,screenPickerPresented: $screenPickerPresented
+                    isMicrophonePublishingBusy: $isMicrophonePublishingBusy
+//                    ,
+//                    isScreenSharePublishingBusy: $isScreenSharePublishingBusy,
+//                    screenPickerPresented: $screenPickerPresented
+//                    ,
+//                    shareScreenOpened: $screenOpened
                 )
+                
+                Button(action: {
+                    print("🐯 screen Share")
+                    roomContext.showStreamView.toggle()
+                }, label: {
+                    Image(systemName: "rectangle.fill.on.rectangle.fill")
+                        .renderingMode(room.localParticipant?.isScreenShareEnabled() ?? false ? .original : .template)
+                })
+                .disabled(isScreenSharePublishingBusy)
+                
                     // Toggle messages view (chat example)
                 Button(action: {
                     withAnimation {
@@ -74,4 +90,12 @@ struct RoomView: View {
             }
         }
     }
+    
+//    private var cameraPreviewImage: Binding<CMSampleBuffer?> {
+//        .init {
+//            nil
+//        } set: { newValue in
+//            screenRecorderCoordinator.$buffer
+//        }
+//    }
 }

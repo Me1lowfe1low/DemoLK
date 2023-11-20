@@ -3,6 +3,7 @@ import LiveKit
 import WebRTC
 import Combine
 
+// This class contains the logic to control behaviour of the whole app.
 final class AppContext: ObservableObject {
     @Published var videoViewVisible: Bool = true {
         didSet { store.videoViewVisible = videoViewVisible }

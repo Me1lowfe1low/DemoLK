@@ -43,6 +43,7 @@ final class RoomContext: ObservableObject {
     @Published var textFieldString: String = ""
     
     @Published var showMessagesView: Bool = false
+    @Published var showStreamView: Bool = false
     @Published var messages: [RoomMessage] = []
     
     public var latestError: DisconnectReason?
@@ -185,6 +186,7 @@ extension RoomContext: RoomDelegate {
                 // Reset state
                 self.focusParticipant = nil
                 self.showMessagesView = false
+                self.showStreamView = false
                 self.messages.removeAll()
                 self.textFieldString = ""
             }

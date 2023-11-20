@@ -35,6 +35,8 @@
 		28AE83932B071BCD00B1E30B /* SampleHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AE83922B071BCD00B1E30B /* SampleHandler.swift */; };
 		28AE83972B071BCD00B1E30B /* BroadcastExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 28AE838F2B071BCD00B1E30B /* BroadcastExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		28AE839D2B071CA000B1E30B /* LiveKit in Frameworks */ = {isa = PBXBuildFile; productRef = 28AE839C2B071CA000B1E30B /* LiveKit */; };
+		28AE83A12B0B322900B1E30B /* ScreenRecorderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AE83A02B0B322900B1E30B /* ScreenRecorderManager.swift */; };
+		28AE83A32B0B5FBA00B1E30B /* ScreenShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AE83A22B0B5FBA00B1E30B /* ScreenShareView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +94,8 @@
 		28AE83922B071BCD00B1E30B /* SampleHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleHandler.swift; sourceTree = "<group>"; };
 		28AE83942B071BCD00B1E30B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		28AE839B2B071BD500B1E30B /* BroadcastExtensionDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BroadcastExtensionDebug.entitlements; sourceTree = "<group>"; };
+		28AE83A02B0B322900B1E30B /* ScreenRecorderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenRecorderManager.swift; sourceTree = "<group>"; };
+		28AE83A22B0B5FBA00B1E30B /* ScreenShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenShareView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +188,7 @@
 			children = (
 				281341902AFCB98F00FC13A9 /* Preferences.swift */,
 				28AE83562B0499AB00B1E30B /* Message.swift */,
+				28AE83A02B0B322900B1E30B /* ScreenRecorderManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -211,6 +216,7 @@
 			children = (
 				281341922AFCE3E700FC13A9 /* AdaptiveStack.swift */,
 				281341942AFCE44500FC13A9 /* AdaptiveGrid.swift */,
+				28AE83A22B0B5FBA00B1E30B /* ScreenShareView.swift */,
 			);
 			path = ViewPrimitives;
 			sourceTree = "<group>";
@@ -369,6 +375,7 @@
 				2813417C2AFCA97000FC13A9 /* ConnectView.swift in Sources */,
 				28AE83592B04E0AC00B1E30B /* MessagesView.swift in Sources */,
 				28AE83612B05C2EA00B1E30B /* RoomContent.swift in Sources */,
+				28AE83A12B0B322900B1E30B /* ScreenRecorderManager.swift in Sources */,
 				28AE835C2B04E68200B1E30B /* MessageView.swift in Sources */,
 				28AE83572B0499AB00B1E30B /* Message.swift in Sources */,
 				2813415D2AFCA4B100FC13A9 /* ContentView.swift in Sources */,
@@ -377,6 +384,7 @@
 				2813417A2AFCA8F200FC13A9 /* RoomView.swift in Sources */,
 				281341952AFCE44500FC13A9 /* AdaptiveGrid.swift in Sources */,
 				281341912AFCB98F00FC13A9 /* Preferences.swift in Sources */,
+				28AE83A32B0B5FBA00B1E30B /* ScreenShareView.swift in Sources */,
 				281341852AFCAC3C00FC13A9 /* ConnectionTextField.swift in Sources */,
 				281341932AFCE3E700FC13A9 /* AdaptiveStack.swift in Sources */,
 				2813418D2AFCAFD200FC13A9 /* ParticipantView.swift in Sources */,
@@ -604,6 +612,7 @@
 				INFOPLIST_FILE = BroadcastExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = BroadcastExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -629,6 +638,7 @@
 				INFOPLIST_FILE = BroadcastExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = BroadcastExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

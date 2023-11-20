@@ -1,4 +1,5 @@
 import SwiftUI
+import CoreMedia
 import LiveKit
 
 struct RoomContent: View {
@@ -7,6 +8,15 @@ struct RoomContent: View {
     @EnvironmentObject var room: Room
     
     @State var geometry: GeometryProxy
+    
+    
+    @ObservedObject var screenRecorderCoordinator = ScreenRecorderCoordinator()
+        //    var cameraPreviewPublisher: AnyPublisher<CMSampleBuffer?, Never>?
+    @State var screenBuffer: CMSampleBuffer?
+//    @State var buffer: CMSampleBuffer?
+    @State var sessionID = UUID().uuidString
+    
+    
     
     var body: some View {
         VStack {
@@ -55,6 +65,45 @@ struct RoomContent: View {
                 
                 if roomContext.showMessagesView {
                     MessagesView(geometry: geometry)
+                }
+                
+                if roomContext.showStreamView {
+                    ScreenShareView(buffer: $screenBuffer)
+                        //                .onChange(of: screenOpened) { value in
+                        .onReceive(roomContext.$showStreamView, perform: { value in
+                            if value {
+                                print("🐹 buffer: \($screenBuffer)")
+                                print("Show stream view start: \(roomContext.showStreamView)")
+                                print("🐹 local.screenSHare: \(roomContext.room.localParticipant?.isScreenShareEnabled())")
+                                screenRecorderCoordinator.startRecord(with: sessionID)
+                                    //                        screenRecorderCoordinator.startDefaultCapture()
+                            } else {
+                                print("Show stream view stop: \(roomContext.showStreamView)")
+                                print("🐹 local.screenSHare: \(roomContext.room.localParticipant?.isScreenShareEnabled())")
+                                screenRecorderCoordinator.stopRecord()
+                                    //                        screenRecorderCoordinator.stopDefaultCapture()
+                            }
+                        })
+//                        .onChange(of: roomContext.showStreamView) { value in
+//                            if value {
+//                                print("🐹 buffer: \($screenBuffer)")
+//                                print("Show stream view start: \(roomContext.showStreamView)")
+//                                print("🐹 local.screenSHare: \(roomContext.room.localParticipant?.isScreenShareEnabled())")
+//                                screenRecorderCoordinator.startRecord(with: sessionID)
+//                                    //                        screenRecorderCoordinator.startDefaultCapture()
+//                            } else {
+//                                print("Show stream view stop: \(roomContext.showStreamView)")
+//                                print("🐹 local.screenSHare: \(roomContext.room.localParticipant?.isScreenShareEnabled())")
+//                                screenRecorderCoordinator.stopRecord()
+//                                    //                        screenRecorderCoordinator.stopDefaultCapture()
+//                            }
+//                        }
+                        .onReceive(screenRecorderCoordinator.$buffer, perform: { value in
+                            print("Show stream view: \(roomContext.showStreamView)")
+                            print("🐹 local.screenSHare: \(roomContext.room.localParticipant?.isScreenShareEnabled())")
+                            screenBuffer = value
+                            print("🐹 buffer value: \(value)")
+                        })
                 }
             }
         }
