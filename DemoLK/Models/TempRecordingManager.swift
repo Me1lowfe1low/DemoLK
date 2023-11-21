@@ -2,48 +2,7 @@ import ReplayKit
 import Photos
 import Combine
 
-protocol ScreenRecorderManager {
-    func isRecording() -> Bool
-    func startRecord(with id: String, completion: @escaping (Result<Void, Error>) -> Void)
-    func stopRecord()
-    func interruptSession()
-    func resumeSession()
-}
-
-enum RecordingStatus: String {
-    case started
-    case recording
-    case resumed
-    case finished
-    case interrupted
-    case none
-}
-
-class ScreenRecorderCoordinator: ObservableObject {
-    @Published var buffer: CMSampleBuffer?
-    private let screenRecorder = RPScreenRecorder.shared()
-    private var status: RecordingStatus = .none
-    @Published var videoBuffer = PassthroughSubject<CMSampleBuffer?, Never>()
-//    @Published var videoBuffer: Future<CMSampleBuffer?, Never> = nil
-    
-    func startDefaultCapture() {
-        screenRecorder
-            .startCapture(handler: { (sampleBuffer, sampleType, error) in
-            print("🦁")
-            self.buffer = sampleBuffer
-        }) { error in
-            print("Error starting capture: \(error?.localizedDescription)")
-        }
-    }
-    
-    func stopDefaultCapture() {
-        screenRecorder
-            .stopCapture(handler: { (error) in
-            if let error = error {
-                print("Error stopping capture: \(error.localizedDescription)")
-            }
-        })
-    }
+final class TempRecordingManager: ScreenRecorderManager, ObservableObject {
     
     private var sharedContainerURL: URL? {
         let fileManager = FileManager.default
@@ -63,8 +22,12 @@ class ScreenRecorderCoordinator: ObservableObject {
         return nil
     }
     
+    //private let uploadManager = DIContainer.shared.resolve(type: UploadVideoManager.self)
+    
+    private let screenRecorder = RPScreenRecorder.shared()
+    var status: RecordingStatus = .none
     private var isChunkSaving = false
-    private var sessionId = UUID().uuidString
+    private var sessionId = ""
     private var assetWriter: AVAssetWriter?
     private var cancellable = Set<AnyCancellable>()
     private var assetVideoWriterInput: AVAssetWriterInput?
@@ -82,35 +45,48 @@ class ScreenRecorderCoordinator: ObservableObject {
         }
     }
     
-    func startRecord(
-        with id: String
-    ){
+    func startRecord(with id: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        
         sessionId = id
         status = .started
+        guard let sharedContainerURL = sharedContainerURL else {
+
+            return
+        }
         
-        screenRecorder
-            .startCapture(handler: { [weak self] (sampleBuffer, sampleType, error) in
-//                print("sampleBuffer: \(sampleBuffer.isValid.description)")
-//                print("sampleType: \(sampleType)")
-//                print("error: \(error?.localizedDescription)")
-                self?.videoBuffer.send(sampleBuffer)
-//                self?.handleVideoSampleBuffer(with: sampleBuffer)
-            }) { error in
-                print("🐯 Error starting capture: \(error?.localizedDescription)")
-            }
+        try? FileManager.default.removeItem(at: sharedContainerURL)
+        startCapture { result in
+            completion(result)
+        }
     }
     
     func stopRecord() {
         status = .finished
         guard screenRecorder.isRecording else {
-            print("Screen recorder already stopped")
-            
+
             return
         }
         screenRecorder.stopCapture()
+        recordChunk()
+    }
+    
+    func interruptSession() {
+        status = .interrupted
+        guard screenRecorder.isRecording else {
+ 
+            return
+        }
+        screenRecorder.stopCapture()
+        recordChunk()
+    }
+    
+    func resumeSession() {
+        status = .resumed
+        startCapture()
     }
     
     private func startCapture(completion: ((Result<Void, Error>) -> Void)? = nil) {
+        
         screenRecorder.startCapture(handler: { [weak self] buffer, bufferType, error in
             guard error == nil,
                   self?.status != .interrupted
@@ -119,7 +95,6 @@ class ScreenRecorderCoordinator: ObservableObject {
                 let timestamp = buffer.presentationTimeStamp.seconds
                 self?.time = timestamp
                 self?.createScreenRecordWriters(for: timestamp)
-                
                 return
             }
             self?.lastBufferTime = buffer.presentationTimeStamp
@@ -162,33 +137,34 @@ class ScreenRecorderCoordinator: ObservableObject {
             assetAudioWriterInput.append(sampleBuffer)
         }
         if CMTimeGetSeconds(time) >= 30 {
-           // recordChunk()
+            recordChunk()
         }
     }
     
-//    private func recordChunk() {
-//        guard !isChunkSaving else { return }
-//        
-//        guard let url = assetWriter?.outputURL
-//        else {
-//            print("Unable to get screen chunk URL")
-//            return
-//        }
-//        guard let lastBufferTime else {
-//            print("Last buffer time is missing")
-//            return
-//        }
-//        isChunkSaving = true
-//        assetVideoWriterInput?.markAsFinished()
-//        assetAudioWriterInput?.markAsFinished()
-//        
-//        assetWriter?.endSession(atSourceTime: lastBufferTime)
-//        assetWriter?.finishWriting { [weak self] in
-//            self?.isChunkSaving = false
-//        }
-//        cleanWriters()
-//    }
-//    
+    private func recordChunk() {
+        guard !isChunkSaving else { return }
+        
+        guard let url = assetWriter?.outputURL
+        else {
+
+            return
+        }
+        guard let lastBufferTime else {
+
+            return
+        }
+        isChunkSaving = true
+        assetVideoWriterInput?.markAsFinished()
+        assetAudioWriterInput?.markAsFinished()
+        
+        assetWriter?.endSession(atSourceTime: lastBufferTime)
+        assetWriter?.finishWriting { [weak self] in
+            
+            self?.isChunkSaving = false
+        }
+        cleanWriters()
+    }
+    
     private func cleanWriters() {
         assetVideoWriterInput = nil
         assetAudioWriterInput = nil
@@ -203,7 +179,7 @@ class ScreenRecorderCoordinator: ObservableObject {
             outputURL: videoPath,
             fileType: .mp4
         ) else {
-            print("Unable to create AVAssetWriter due problem with output URL")
+
             return
         }
         let videoSettings: [String: Any] = [
@@ -226,6 +202,7 @@ class ScreenRecorderCoordinator: ObservableObject {
             AVEncoderBitRateKey : 64000,
             AVNumberOfChannelsKey: 1
         ]
+        
         let audioInput = AVAssetWriterInput(
             mediaType: .audio,
             outputSettings: audioSettings

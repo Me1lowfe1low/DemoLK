@@ -1,9 +1,16 @@
 import SwiftUI
 import LiveKit
 import WebRTC
+import Combine
 
 // This class contains the logic to control behaviour of the whole app.
 final class RoomContext: ObservableObject {
+    enum ShareStatus {
+        case none
+        case started
+        case stopped
+    }
+    
     @Published var shouldShowDisconnectReason: Bool = false
     @Published var url: String = "" {
         didSet { store.url = url }
@@ -45,6 +52,8 @@ final class RoomContext: ObservableObject {
     @Published var showMessagesView: Bool = false
     @Published var showStreamView: Bool = false
     @Published var messages: [RoomMessage] = []
+    @Published var shareStatus: ShareStatus = .none
+    @Published var videoBuffer = CurrentValueSubject<CMSampleBuffer?, Never>(nil)
     
     public var latestError: DisconnectReason?
     public let room = Room()

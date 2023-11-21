@@ -1,6 +1,11 @@
 import SwiftUI
 import CoreMedia
 import LiveKit
+import Combine
+
+import CoreGraphics
+import VideoToolbox
+
 
 struct RoomContent: View {
     @EnvironmentObject var applicationContext: AppContext
@@ -11,12 +16,14 @@ struct RoomContent: View {
     
     
     @ObservedObject var screenRecorderCoordinator = ScreenRecorderCoordinator()
+    @ObservedObject var screenRecorderManager = TempRecordingManager()
         //    var cameraPreviewPublisher: AnyPublisher<CMSampleBuffer?, Never>?
     @State var screenBuffer: CMSampleBuffer?
+    @State var videoBuffer: CurrentValueSubject<CMSampleBuffer?, Never>?
 //    @State var buffer: CMSampleBuffer?
     @State var sessionID = UUID().uuidString
-    
-    
+    @State private var image: CGImage?
+    @Binding var shareScreenOpened: Bool
     
     var body: some View {
         VStack {
@@ -68,46 +75,62 @@ struct RoomContent: View {
                 }
                 
                 if roomContext.showStreamView {
-                    ScreenShareView(buffer: $screenBuffer)
-                        //                .onChange(of: screenOpened) { value in
-                        .onReceive(roomContext.$showStreamView, perform: { value in
-                            if value {
-                                print("🐹 buffer: \($screenBuffer)")
-                                print("Show stream view start: \(roomContext.showStreamView)")
-                                print("🐹 local.screenSHare: \(roomContext.room.localParticipant?.isScreenShareEnabled())")
+//                if shareScreenOpened {
+//                    Text("\(shareScreenOpened.description)")
+                    Text("\(roomContext.showStreamView.description)")
+                    
+                    ScreenShareImageView(currentFrameImage: $image)
+                        .frame(
+                            width: 300,
+                            height: 300
+                        )
+                        .onReceive(currentImage) { img in
+                            print("🐣 image changed")
+                            image = img
+                        }
+                        .onReceive(roomContext.$showStreamView) { value in
+//                        .onChange(of: Just($shareScreenOpened.wrappedValue)) { value in
+//                        .onReceive(Just($shareScreenOpened.wrappedValue)) { value in
+                            print("🐹 buffer: \(value), roomContext.shareStatus: \(roomContext.shareStatus) ")
+                            if value == true && roomContext.shareStatus != .started {
+                                print("🐹 start, roomContext.shareStatus: \(roomContext.shareStatus)  ")
+                                roomContext.shareStatus = .started
+//                                startRecord()
                                 screenRecorderCoordinator.startRecord(with: sessionID)
-                                    //                        screenRecorderCoordinator.startDefaultCapture()
-                            } else {
-                                print("Show stream view stop: \(roomContext.showStreamView)")
-                                print("🐹 local.screenSHare: \(roomContext.room.localParticipant?.isScreenShareEnabled())")
+                            } else if value == false {
+                                print("🐹 stop, roomContext.shareStatus: \(roomContext.shareStatus) ")
+                                roomContext.shareStatus = .stopped
+//                                stopRecord()
                                 screenRecorderCoordinator.stopRecord()
-                                    //                        screenRecorderCoordinator.stopDefaultCapture()
+                            } else {
+                                print("Smth, roomContext.shareStatus: \(roomContext.shareStatus) ")
                             }
-                        })
-//                        .onChange(of: roomContext.showStreamView) { value in
-//                            if value {
-//                                print("🐹 buffer: \($screenBuffer)")
-//                                print("Show stream view start: \(roomContext.showStreamView)")
-//                                print("🐹 local.screenSHare: \(roomContext.room.localParticipant?.isScreenShareEnabled())")
-//                                screenRecorderCoordinator.startRecord(with: sessionID)
-//                                    //                        screenRecorderCoordinator.startDefaultCapture()
-//                            } else {
-//                                print("Show stream view stop: \(roomContext.showStreamView)")
-//                                print("🐹 local.screenSHare: \(roomContext.room.localParticipant?.isScreenShareEnabled())")
-//                                screenRecorderCoordinator.stopRecord()
-//                                    //                        screenRecorderCoordinator.stopDefaultCapture()
-//                            }
-//                        }
-                        .onReceive(screenRecorderCoordinator.$buffer, perform: { value in
-                            print("Show stream view: \(roomContext.showStreamView)")
-                            print("🐹 local.screenSHare: \(roomContext.room.localParticipant?.isScreenShareEnabled())")
-                            screenBuffer = value
-                            print("🐹 buffer value: \(value)")
-                        })
+                        }
+                        
                 }
             }
         }
         .padding(5)
+    }
+    
+    var currentImage: AnyPublisher<CGImage?, Never> {
+        guard let tempVideoBuffer = videoBuffer else {
+            let imageSubject = CurrentValueSubject<CGImage?, Never>(nil)
+            
+            return imageSubject.eraseToAnyPublisher()
+        }
+        
+        return screenRecorderCoordinator.videoBuffer
+            .print("🐴 Buffer")
+            .receive(on: DispatchQueue.main)
+            .compactMap {
+                guard let imageBuffer = $0?.imageBuffer,
+                      let cgImage = imageBuffer.toCGImage()
+                else { return nil }
+                
+                return cgImage
+            }
+            .eraseToAnyPublisher()
     }
 }
 
@@ -125,5 +148,33 @@ extension RoomContent {
             if p2 is LocalParticipant { return false }
             return (p1.joinedAt ?? Date()) < (p2.joinedAt ?? Date())
         }
+    }
+    
+    public func startRecord() {
+        screenRecorderManager.startRecord(with: sessionID) { result in
+            switch result {
+                case .success():
+                    screenRecorderManager.status = .recording
+                case .failure(let error):
+                    print("\(error.localizedDescription)")
+            }
+        }
+    }
+    
+    
+    private func stopRecord() {
+        screenRecorderManager.stopRecord()
+    }
+}
+
+extension CVPixelBuffer {
+    func toCGImage () -> CGImage? {
+        var image: CGImage?
+        VTCreateCGImageFromCVPixelBuffer(
+            self,
+            options: nil,
+            imageOut: &image
+        )
+        return image
     }
 }

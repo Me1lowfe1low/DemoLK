@@ -18,10 +18,12 @@ struct RoomView: View {
     @State private var screenPickerPresented = false
     @State private var showConnectionTime = true
     @State private var screenOpened = false
+    
+    @State private var shareScreenOpened = false
 
     var body: some View {
         GeometryReader { geometry in
-            RoomContent(geometry: geometry)
+            RoomContent(geometry: geometry, shareScreenOpened: $shareScreenOpened)
         }
         .toolbar {
             ToolbarItemGroup(placement: toolbarPlacement) {
@@ -37,15 +39,11 @@ struct RoomView: View {
                 ToolbarView(
                     isCameraPublishingBusy: $isCameraPublishingBusy,
                     isMicrophonePublishingBusy: $isMicrophonePublishingBusy
-//                    ,
-//                    isScreenSharePublishingBusy: $isScreenSharePublishingBusy,
-//                    screenPickerPresented: $screenPickerPresented
-//                    ,
-//                    shareScreenOpened: $screenOpened
                 )
                 
                 Button(action: {
-                    print("🐯 screen Share")
+//                    shareScreenOpened.toggle()
+//                    print("🐯  shareScreenOpened: \(shareScreenOpened)")
                     roomContext.showStreamView.toggle()
                 }, label: {
                     Image(systemName: "rectangle.fill.on.rectangle.fill")
@@ -90,12 +88,4 @@ struct RoomView: View {
             }
         }
     }
-    
-//    private var cameraPreviewImage: Binding<CMSampleBuffer?> {
-//        .init {
-//            nil
-//        } set: { newValue in
-//            screenRecorderCoordinator.$buffer
-//        }
-//    }
 }

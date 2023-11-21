@@ -26,6 +26,7 @@
 		281341972AFCE47C00FC13A9 /* GeometryProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281341962AFCE47C00FC13A9 /* GeometryProxy.swift */; };
 		2813419A2AFCE56200FC13A9 /* ParticipantLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281341992AFCE56200FC13A9 /* ParticipantLayout.swift */; };
 		2813419C2AFCEBD500FC13A9 /* Image+backgroundIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2813419B2AFCEBD500FC13A9 /* Image+backgroundIcon.swift */; };
+		288D19C22B0CB77400FCF1E2 /* TempRecordingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288D19C12B0CB77400FCF1E2 /* TempRecordingManager.swift */; };
 		28AE83572B0499AB00B1E30B /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AE83562B0499AB00B1E30B /* Message.swift */; };
 		28AE83592B04E0AC00B1E30B /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AE83582B04E0AC00B1E30B /* MessagesView.swift */; };
 		28AE835C2B04E68200B1E30B /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AE835B2B04E68200B1E30B /* MessageView.swift */; };
@@ -83,6 +84,7 @@
 		281341962AFCE47C00FC13A9 /* GeometryProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryProxy.swift; sourceTree = "<group>"; };
 		281341992AFCE56200FC13A9 /* ParticipantLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantLayout.swift; sourceTree = "<group>"; };
 		2813419B2AFCEBD500FC13A9 /* Image+backgroundIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+backgroundIcon.swift"; sourceTree = "<group>"; };
+		288D19C12B0CB77400FCF1E2 /* TempRecordingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempRecordingManager.swift; sourceTree = "<group>"; };
 		28AE83562B0499AB00B1E30B /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		28AE83582B04E0AC00B1E30B /* MessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
 		28AE835B2B04E68200B1E30B /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				281341902AFCB98F00FC13A9 /* Preferences.swift */,
 				28AE83562B0499AB00B1E30B /* Message.swift */,
 				28AE83A02B0B322900B1E30B /* ScreenRecorderManager.swift */,
+				288D19C12B0CB77400FCF1E2 /* TempRecordingManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 				281341932AFCE3E700FC13A9 /* AdaptiveStack.swift in Sources */,
 				2813418D2AFCAFD200FC13A9 /* ParticipantView.swift in Sources */,
 				281341972AFCE47C00FC13A9 /* GeometryProxy.swift in Sources */,
+				288D19C22B0CB77400FCF1E2 /* TempRecordingManager.swift in Sources */,
 				2813416A2AFCA54F00FC13A9 /* RoomSwitchView.swift in Sources */,
 				281341832AFCAC1000FC13A9 /* ConnectionButton.swift in Sources */,
 				281341722AFCA6B500FC13A9 /* ApplicationController.swift in Sources */,

@@ -21,6 +21,21 @@ struct ScreenShareView: View {
     }
 }
 
+struct ScreenShareImageView: View {
+    @Binding var currentFrameImage: CGImage?
+    
+    var body: some View {
+        if let currentFrameImage = currentFrameImage {
+            Image(
+                decorative: currentFrameImage,
+                scale: 1.0
+            )
+            .resizable()
+            .scaledToFill()
+        }
+    }
+}
+
 struct VideoTestView: UIViewRepresentable {
     @Binding var sampleBuffer: CMSampleBuffer?
     
